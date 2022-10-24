@@ -19,9 +19,9 @@ class User(db.Model):
                    primary_key=True,
                    autoincrement=True)
     
-    first_name = db.Column(db.String, nullable=False, default='John')
-    last_name = db.Column(db.String, nullable=False, default='Smith')
-    image_url = db.Column(db.String)
+    first_name = db.Column(db.Text, nullable=False, default='John')
+    last_name = db.Column(db.Text, nullable=False, default='Smith')
+    image_url = db.Column(db.Text)
 
     def greet(self):
         """Greet using name"""
