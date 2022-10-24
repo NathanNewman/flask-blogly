@@ -7,3 +7,8 @@ Installation Commands Used
     pip install flask-debugtoolbar
     pip3 freeze > requirements.txt
     touch .gitignore
+
+Start postgresql in Ubuntu
+    sudo apt-get install postgresql
+    sudo service postgresql status
+    sudo service postgresql start
