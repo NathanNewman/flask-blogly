@@ -15,12 +15,23 @@ connect_db(app)
 db.create_all()
 
 @app.route("/")
-def homepage():
+def root():
     """List users and show add form"""
-    users = User.query.all()
-    return render_template("form.html", users=users)
+    
+    return redirect("/homepage")
 
-@app.route("/", methods=["POST"])
+@app.route("/homepage")
+def homepage():
+    """List users"""
+    users = User.query.all()
+    return render_template("/homepage.html", users=users)
+
+@app.route("/form")
+def form():
+    """Takes user to add users form"""
+    return render_template("/form.html")
+
+@app.route("/form", methods=["POST"])
 def add_user():
     """Add user and redirect to list"""
 
