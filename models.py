@@ -3,13 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
-def connect_db(app):
-    """Connect to database."""
-
-    db.app = app
-    db.init_app(app)
-
 class User(db.Model):
     """User."""
 
@@ -21,14 +14,16 @@ class User(db.Model):
     
     first_name = db.Column(db.Text, nullable=False, default='John')
     last_name = db.Column(db.Text, nullable=False, default='Smith')
-    image_url = db.Column(db.Text)
+    image_url = db.Column(db.Text, default="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=2000")
 
-    def greet(self):
-        """Greet using name"""
-        return f"Hi! I'm {self.first_name}. Nice to meet you."
+    @property
+    def full_name(self):
+        """Return full name of user."""
 
-    def __repr__(self):
-        """Show info about user"""
+        return f"{self.first_name} {self.last_name}"
 
-        u = self
-        return f"<User {u.id} {u.first_name} {u.last_name} {u.url}"
+def connect_db(app):
+    """Connect to database."""
+
+    db.app = app
+    db.init_app(app)

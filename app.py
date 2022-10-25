@@ -35,19 +35,13 @@ def form():
 def add_user():
     """Add user and redirect to list"""
 
-    first_name = request.form['first_name']
-    last_name = request.form['last_name']
-    url = request.form['url']
+    first = request.form['first_name']
+    last = request.form['last_name']
+    image = request.form['image_url']
 
-    user = User(first_name=first_name, last_name=last_name, url=url)
-    db.session.add(user)
+    new_user = User(first_name=first, last_name=last, image_url=image)
+    db.session.add(new_user)
     db.session.commit()
+    user = User.query
 
-    return redirect(f"/{user.id}")
-
-@app.route("/int:user_id")
-def show_user(user_id):
-    """show info on single user"""
-
-    user = User.query.get_or_404(user_id)
-    return render_template("detail.html", user=user)
+    return redirect("detail.html", user=user)
