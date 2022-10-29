@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
+      <a class="nav-link" href="/all-users"> Users |</a>
+      <a class="nav-link" href="/add-user"> Add User |</a>
+      <a class="nav-link" href="/posts"> All Posts |</a>
+    </div>
+  </nav>
+    <h3>Users</h3>
+    <ul>
+      {% for user in users %}
+      <li>
+        <a href="/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

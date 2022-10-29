@@ -7,24 +7,25 @@
     <title>Blogly</title>
   </head>
   <body>
-    <nav>
-      <div class="navbar">
-        <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
-        <a class="nav-link" href="/form"> Add User |</a>
-      </div>
-    </nav>
+    <div class="navbar">
+      <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
+      <a class="nav-link" href="/all-users"> Users |</a>
+      <a class="nav-link" href="/add-user"> Add User |</a>
+      <a class="nav-link" href="/posts"> All Posts |</a>
+    </div>
+  </nav>
     <h2>Add New User</h2>
-    <form action="/form" method="POST">
+    <form action="/add-user" method="post">
       <label for="first_name">First Name:</label>
       <input type="text" id="first_name" name="first_name" placeholder="John" />
       <br /><br />
       <lable for="last_name">Last Name:</lable>
       <input type="text" id="last_name" name="last_name" placeholder="Smith" />
       <br /><br />
-      <lable for="url">URL:</lable>
+      <lable for="image_url">URL:</lable>
       <input
         type="text"
-        id="url"
+        id="image_url"
         name="image_url"
         size="125"
         placeholder="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=2000"

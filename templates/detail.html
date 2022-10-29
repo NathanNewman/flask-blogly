@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{% user.id %}}</title>
-</head>
-<body>
-    <img src = {{% user.image_url %}}>
-    <p>{{% user.first_name %}}</p>
-    <p>{{% user.last_name %}}</p>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ user.first_name }} {{ user.last_name }}</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
+      <a class="nav-link" href="/all-users"> Users |</a>
+      <a class="nav-link" href="/add-user"> Add User |</a>
+      <a class="nav-link" href="/posts"> All Posts |</a>
+    </div>
+  </nav>
+    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+    <img src="{{ user.image_url }}" />
+    <h3>{{ user.first_name }}'s Posts</h3>
+    <ul>
+      {% for post in posts %}
+      <il>
+        <h4>{{post.title}}</h4>
+        <p>
+          {{post.content}}
+          <b>by {{post.user.first_name}} {{post.user.last_name}}</b>
+        </p>
+        <p>Date: {{post.created_at}}</p>
+      </il>
+      {% endfor %}
+    </ul>
+    <form action="/new-post" method="post">
+      <input type="hidden" name="user" value="{{user.id}}">
+    <button action="/new-post" method="post" name="user" value="{{user.id}}">Add Post</button>
+    </form>
+  </body>
 </html>
