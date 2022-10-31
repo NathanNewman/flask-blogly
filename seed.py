@@ -1,8 +1,8 @@
 """Seed file to make sample data for users db."""
 from app import app
-from models import User, Post, db
+from models import User, Post, Tag, Tag_Post, db
 
-#Create all tables
+# Create all tables
 db.drop_all()
 db.create_all()
 
@@ -11,9 +11,12 @@ User.query.delete()
 Post.query.delete()
 
 # Add users
-alan = User(first_name='Alan', last_name='Alda', image_url='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
-joel = User(first_name='Joel', last_name='Burton', image_url='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80')
-jane = User(first_name='Jane', last_name='Smith', image_url='https://media.istockphoto.com/photos/beautiful-successful-latin-woman-smiling-picture-id1369508766?b=1&k=20&m=1369508766&s=170667a&w=0&h=xr3pk8VTmDoC9JXzEqMPL_4jZLiyIJWUMzKrBlVQiPI=')
+alan = User(first_name='Alan', last_name='Alda',
+            image_url='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
+joel = User(first_name='Joel', last_name='Burton',
+            image_url='https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80')
+jane = User(first_name='Jane', last_name='Smith',
+            image_url='https://media.istockphoto.com/photos/beautiful-successful-latin-woman-smiling-picture-id1369508766?b=1&k=20&m=1369508766&s=170667a&w=0&h=xr3pk8VTmDoC9JXzEqMPL_4jZLiyIJWUMzKrBlVQiPI=')
 
 # Add posts
 # id, title, content, created_at, user_name
@@ -35,7 +38,7 @@ sorry = Post(
     user_id=2)
 np = Post(
     title='NP',
-    content= 'No problem. It actually gave me a laugh.',
+    content='No problem. It actually gave me a laugh.',
     user_id=1)
 ego = Post(
     title='Too Much Ego',
@@ -46,6 +49,23 @@ back_off = Post(
     content='I said I was sorry Jane. Can you just stop with the nagging already?',
     user_id=2
 )
+
+# Add Tags
+fun = Tag(name='Fun')
+even_more = Tag(name='Even More')
+bloop = Tag(name='Bloop')
+zope = Tag(name='Zope')
+hello = Tag(name='Hello')
+first = Tag(name='First')
+wrong = Tag(name='Wrong')
+sorry = Tag(name='Sorry')
+
+# Add Tagged Posts
+welcome_hello = Tag_Post(post_id=1, tag_id=5)
+first_first = Tag_Post(post_id=2, tag_id=6)
+wrong_wrong = Tag_Post(post_id=3, tag_id=7)
+sorry_sorry = Tag_Post(post_id=4, tag_id=8)
+
 
 # Add new objects to session
 db.session.add(alan)
@@ -58,6 +78,14 @@ db.session.add(sorry)
 db.session.add(np)
 db.session.add(ego)
 db.session.add(back_off)
+db.session.add(fun)
+db.session.add(even_more)
+db.session.add(bloop)
+db.session.add(zope)
+db.session.add(welcome_hello)
+db.session.add(first_first)
+db.session.add(wrong_wrong)
+db.session.add(sorry_sorry)
 
 # Commit
 db.session.commit()
