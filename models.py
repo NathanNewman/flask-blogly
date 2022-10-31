@@ -83,7 +83,8 @@ class Tag_Post(db.Model):
                    autoincrement=True)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
-    posts = db.relationship('Post')
+    posts = db.relationship('Post', secondary="Tag_Post",
+                            cascade="all,delete", backref="tags")
     tags = db.relationship('Tag')
 
 
