@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blogly</title>
+    <title>Document</title>
   </head>
   <body>
     <nav>
@@ -15,13 +15,24 @@
         <a class="nav-link" href="/posts"> All Posts |</a>
       </div>
     </nav>
-    <h2>Add New User</h2>
-    <form action="/add-user" method="post">
+    <h2>Edit User</h2>
+    <form action="/editted-user" method="post">
+      <input type="hidden" name="id" value="{{user.id}}" />
       <label for="first_name">First Name:</label>
-      <input type="text" id="first_name" name="first_name" placeholder="John" />
+      <input
+        type="text"
+        id="first_name"
+        name="first_name"
+        value="{{user.first_name}}"
+      />
       <br /><br />
       <lable for="last_name">Last Name:</lable>
-      <input type="text" id="last_name" name="last_name" placeholder="Smith" />
+      <input
+        type="text"
+        id="last_name"
+        name="last_name"
+        value="{{user.last_name}}"
+      />
       <br /><br />
       <lable for="image_url">URL:</lable>
       <input
@@ -29,10 +40,14 @@
         id="image_url"
         name="image_url"
         size="125"
-        placeholder="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=2000"
+        value="{{user.image_url}}"
       />
       <br /><br />
-      <button>Create User</button>
+      <button>Save Edit</button>
+    </form>
+    <form action="/delete-user" method="post">
+      <input type="hidden" name="user" value="{{user.id}}" />
+      <button>Delete User</button>
     </form>
   </body>
 </html>

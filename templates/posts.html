@@ -7,13 +7,14 @@
     <title>Blogly Posts</title>
 </head>
 <body>
+  <nav>
   <div class="navbar">
     <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
     <a class="nav-link" href="/all-users"> Users |</a>
     <a class="nav-link" href="/add-user"> Add User |</a>
     <a class="nav-link" href="/posts"> All Posts |</a>
   </div>
-</nav>
+  </nav>
     <h3>Posts</h3>
         <ul>
           {% for post in posts %}
@@ -24,7 +25,7 @@
               <b>by {{post.user.first_name}} {{post.user.last_name}}</b>
             </p>
             <p>Date: {{post.created_at}}</p>
-          </il>
+            
           {% endfor %}
     
 </body>

@@ -7,13 +7,14 @@
     <title>{{ user.first_name }} {{ user.last_name }}</title>
   </head>
   <body>
-    <div class="navbar">
-      <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
-      <a class="nav-link" href="/all-users"> Users |</a>
-      <a class="nav-link" href="/add-user"> Add User |</a>
-      <a class="nav-link" href="/posts"> All Posts |</a>
-    </div>
-  </nav>
+    <nav>
+      <div class="navbar">
+        <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
+        <a class="nav-link" href="/all-users"> Users |</a>
+        <a class="nav-link" href="/add-user"> Add User |</a>
+        <a class="nav-link" href="/posts"> All Posts |</a>
+      </div>
+    </nav>
     <h3>{{ user.first_name }} {{ user.last_name }}</h3>
     <img src="{{ user.image_url }}" />
     <h3>{{ user.first_name }}'s Posts</h3>
@@ -26,12 +27,25 @@
           <b>by {{post.user.first_name}} {{post.user.last_name}}</b>
         </p>
         <p>Date: {{post.created_at}}</p>
+        <form action="/edit-post_html" method="post">
+          <input type="hidden" name="post-id" value="{{post.id}}">
+          <button>Edit</button>
+        </form>
+        <form action="/delete-post" method="post">
+          <input type="hidden" name="post-id" value="{{post.id}}">
+          <button>Delete</button>
+        </form>
+      </il>
       </il>
       {% endfor %}
     </ul>
     <form action="/new-post" method="post">
       <input type="hidden" name="user" value="{{user.id}}">
-    <button action="/new-post" method="post" name="user" value="{{user.id}}">Add Post</button>
+    <button>Add Post</button>
+    </form>
+    <form action="/edit-user" method="post">
+      <input type="hidden" name="user-id" value="{{user.id}}">
+      <button>Edit User</button>
     </form>
   </body>
 </html>
