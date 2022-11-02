@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tag</title>
+</head>
+<body>
+    <h3>Create New Tag</h3>
+    <form action="/new-tag" method="post">
+        <input type="hidden" name="user-id" value="{{user.id}}">
+        <input type="text" name="tag-name"><br><br>
+        {% for post in posts %}
+        <input type="checkbox" id="{{post.id}}"name="post-id" value="{{post.id}}">
+        <label for="{{post.id}}"><b>{{post.title}}</b> {{post.content}}</label><br><br>
+        {% endfor %}
+        <button>Save Tag</button>
+    </form>
+    
+</body>
+</html>

@@ -22,7 +22,8 @@ class User(db.Model):
     last_name = db.Column(db.Text, nullable=False, default='Smith')
     image_url = db.Column(
         db.Text, default="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=2000")
-    posts = db.relationship('Post')
+    posts = db.relationship('Post', backref="user",
+                            cascade="all, delete-orphan")
 
 
 class Post(db.Model):
@@ -48,9 +49,8 @@ class Post(db.Model):
         db.Integer,
         db.ForeignKey('users.id'),
         nullable=False)
-
-    user = db.relationship('User')
-    tagged = db.relationship('Tag_Post')
+    # tags = db.relationship(
+    #     'Tag', secondary='tagged_posts', cascade="all,delete", backref="posts")
 
 
 class Tag(db.Model):
@@ -67,7 +67,8 @@ class Tag(db.Model):
                    autoincrement=True)
 
     name = db.Column(db.Text, nullable=False)
-    tagged = db.relationship('Tag_Post')
+    posts = db.relationship(
+        'Post', secondary='tagged_posts', cascade="all,delete", backref="tags")
 
 
 class Tag_Post(db.Model):
@@ -76,16 +77,13 @@ class Tag_Post(db.Model):
     __tablename__ = "tagged_posts"
 
     def __repr__(self):
-        t = self
+        tp = self
+        return f"<post_id = {tp.post_id} tag_id = {tp.tag_id}>"
 
-    id = db.Column(db.Integer,
-                   primary_key=True,
-                   autoincrement=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
-    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
-    posts = db.relationship('Post', secondary="Tag_Post",
-                            cascade="all,delete", backref="tags")
-    tags = db.relationship('Tag')
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), nullable=False, primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey(
+        'tags.id'), nullable=False, primary_key=True)
 
 
 def connect_db(app):

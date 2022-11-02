@@ -43,6 +43,10 @@
       <input type="hidden" name="user" value="{{user.id}}">
     <button>Add Post</button>
     </form>
+    <form action="/tag" method="post">
+      <input type="hidden" name="user" value="{{user.id}}">
+      <button>New Tag</button>
+    </form>
     <form action="/edit-user" method="post">
       <input type="hidden" name="user-id" value="{{user.id}}">
       <button>Edit User</button>

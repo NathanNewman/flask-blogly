@@ -55,17 +55,6 @@ fun = Tag(name='Fun')
 even_more = Tag(name='Even More')
 bloop = Tag(name='Bloop')
 zope = Tag(name='Zope')
-hello = Tag(name='Hello')
-first = Tag(name='First')
-wrong = Tag(name='Wrong')
-sorry = Tag(name='Sorry')
-
-# Add Tagged Posts
-welcome_hello = Tag_Post(post_id=1, tag_id=5)
-first_first = Tag_Post(post_id=2, tag_id=6)
-wrong_wrong = Tag_Post(post_id=3, tag_id=7)
-sorry_sorry = Tag_Post(post_id=4, tag_id=8)
-
 
 # Add new objects to session
 db.session.add(alan)
@@ -82,10 +71,6 @@ db.session.add(fun)
 db.session.add(even_more)
 db.session.add(bloop)
 db.session.add(zope)
-db.session.add(welcome_hello)
-db.session.add(first_first)
-db.session.add(wrong_wrong)
-db.session.add(sorry_sorry)
 
 # Commit
 db.session.commit()

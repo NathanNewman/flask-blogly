@@ -2,7 +2,7 @@
 
 from flask import Flask, request, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, Tag_Post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -55,8 +55,9 @@ def add_user():
 def user(userId):
     user = User.query.get(userId)
     posts = Post.query.filter_by(user_id=userId).all()
-
-    return render_template("detail.html", user=user, posts=posts)
+    tagged_posts = Tag_Post.query.all()
+    tags = Tag.query.all()
+    return render_template("detail.html", user=user, posts=posts, tagged_posts=tagged_posts, tags=tags)
 
 
 @app.route("/posts")
@@ -150,3 +151,34 @@ def delete_user():
     User.query.filter_by(id=userId).delete()
     db.session.commit()
     return all_users()
+
+
+@app.route("/tag", methods=["POST"])
+def tag_html():
+    userId = request.form["user"]
+    user = User.query.get(userId)
+    posts = Post.query.filter_by(user_id=userId).all()
+    return render_template("/tag.html", user=user, posts=posts)
+
+
+@app.route("/new-tag", methods=["POST"])
+def new_tag():
+    userId = request.form['user-id']
+    tagName = request.form['tag-name']
+    postIds = request.form['post-id']
+    new_tag = Tag(name=tagName)
+    db.session.add(new_tag)
+    db.session.commit()
+    tag = Tag.query.filter_by(name=tagName).first()
+    tagId = tag.id
+    for post in postIds:
+        new_tp = Tag_Post(post_id=post, tag_id=tagId)
+        db.session.add(new_tp)
+        db.session.commit()
+    return user(userId)
+
+def tag_post():
+    tagged_posts = Tag_Post.query.all()
+    posts = Post.query.all()
+    tags = Tag.query.all()
+    return tagged_posts, posts, tags
