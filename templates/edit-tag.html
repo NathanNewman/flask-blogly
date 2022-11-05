@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Tag</title>
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <a class="nav-link" href="/homepage" id="homepage">| Homepage |</a>
+        <a class="nav-link" href="/all-users"> Users |</a>
+        <a class="nav-link" href="/add-user"> Add User |</a>
+        <a class="nav-link" href="/posts"> All Posts |</a>
+        <a class="nav-link" href="/tags">All Tags |</a>
+      </div>
+    </nav>
+    <h3>Edit Tag</h3>
+    <form action="/editted-tag" method="post">
+      <input type="hidden" name="tag-id" value="{{tag.id}}" />
+      <input type="text" name="tag-name" value="{{tag.name}}" /><br /><br />
+      {% for post in posts %} {% if post in tag.posts %}
+      <input
+        type="checkbox"
+        id="{{post.id}}"
+        name="post-id"
+        value="{{post.id}}"
+        checked
+      />
+      <label for="{{post.id}}"><b>{{post.title}}</b> {{post.content}}</label
+      ><br /><br />
+      {% else %}
+      <input
+        type="checkbox"
+        id="{{post.id}}"
+        name="post-id"
+        value="{{post.id}}"
+      />
+      <label for="{{post.id}}"><b>{{post.title}}</b> {{post.content}}</label
+      ><br /><br />
+      {% endif %} {% endfor %}
+      <button>Save Tag</button>
+    </form>
+    <form action="/delete-tag" method="post">
+      <input type="hidden" name="tag-id" value="{{tag.id}}" />
+      <button>Delete Tag</button>
+    </form>
+  </body>
+</html>

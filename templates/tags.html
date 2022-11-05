@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Users</title>
+    <title>All Tags</title>
   </head>
   <body>
     <nav>
@@ -16,13 +16,15 @@
         <a class="nav-link" href="/tags">All Tags |</a>
       </div>
     </nav>
-    <h3>Users</h3>
+    <h3>All Tags</h3>
+
     <ul>
-      {% for user in users %}
-      <li>
-        <a href="/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
-      </li>
+      {% for tag in tags %}
+      <li><a href="/edit-tag/{{tag.id}}">{{tag.name}}</a></li>
       {% endfor %}
     </ul>
+    <form action="/tag">
+      <button>New Tag</button>
+    </form>
   </body>
 </html>

@@ -13,6 +13,7 @@
         <a class="nav-link" href="/all-users"> Users |</a>
         <a class="nav-link" href="/add-user"> Add User |</a>
         <a class="nav-link" href="/posts"> All Posts |</a>
+        <a class="nav-link" href="/tags">All Tags |</a>
       </div>
     </nav>
     <h3>{{ user.first_name }} {{ user.last_name }}</h3>
@@ -27,6 +28,9 @@
           <b>by {{post.user.first_name}} {{post.user.last_name}}</b>
         </p>
         <p>Date: {{post.created_at}}</p>
+          {% for tag in post.tags %}  
+          <a href="/edit-tag/{{tag.id}}">| {{tag.name}} |</a>
+          {% endfor %}
         <form action="/edit-post_html" method="post">
           <input type="hidden" name="post-id" value="{{post.id}}">
           <button>Edit</button>
@@ -43,8 +47,7 @@
       <input type="hidden" name="user" value="{{user.id}}">
     <button>Add Post</button>
     </form>
-    <form action="/tag" method="post">
-      <input type="hidden" name="user" value="{{user.id}}">
+    <form action="/tag">
       <button>New Tag</button>
     </form>
     <form action="/edit-user" method="post">

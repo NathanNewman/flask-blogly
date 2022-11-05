@@ -60,7 +60,7 @@ class Tag(db.Model):
 
     def __repr__(self):
         t = self
-        return f"<tag {t.id}: {t.name}; post_id: {t.post_id}>"
+        return f"<tag {t.id}: {t.name}>"
 
     id = db.Column(db.Integer,
                    primary_key=True,
@@ -80,10 +80,11 @@ class Tag_Post(db.Model):
         tp = self
         return f"<post_id = {tp.post_id} tag_id = {tp.tag_id}>"
 
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     post_id = db.Column(db.Integer, db.ForeignKey(
-        'posts.id'), nullable=False, primary_key=True)
+        'posts.id'), nullable=False)
     tag_id = db.Column(db.Integer, db.ForeignKey(
-        'tags.id'), nullable=False, primary_key=True)
+        'tags.id'), nullable=False)
 
 
 def connect_db(app):

@@ -56,6 +56,7 @@ def user(userId):
     user = User.query.get(userId)
     posts = Post.query.filter_by(user_id=userId).all()
     tagged_posts = Tag_Post.query.all()
+    # Why use all tags?
     tags = Tag.query.all()
     return render_template("detail.html", user=user, posts=posts, tagged_posts=tagged_posts, tags=tags)
 
@@ -63,6 +64,7 @@ def user(userId):
 @app.route("/posts")
 def posts():
     users = User.query.all()
+
     posts = Post.query.all()
     return render_template("/posts.html", users=users, posts=posts)
 
@@ -99,7 +101,7 @@ def edit_post_html():
 @app.route("/edit-post", methods=["POST"])
 def edit_post():
     postId = request.form['post-id']
-    int(postId)
+    postId = int(postId)
     title = request.form['title']
     content = request.form['content']
     post = Post.query.filter_by(id=postId).first()
@@ -107,18 +109,18 @@ def edit_post():
     post.content = content
     userId = post.user_id
     db.session.commit()
-    return user(userId)
+    return redirect(f"/{userId}")
 
 
 @app.route("/delete-post", methods=["POST"])
 def delete_post():
     postId = request.form['post-id']
-    int(postId)
+    postId = int(postId)
     post = Post.query.filter_by(id=postId).first()
     userId = post.user_id
     Post.query.filter_by(id=postId).delete()
     db.session.commit()
-    return user(userId)
+    return redirect(f"/{userId}")
 
 
 @app.route("/edit-user", methods=["POST"])
@@ -140,7 +142,7 @@ def edit_user():
     current_user.last_name = last_name
     current_user.image_url = image_url
     db.session.commit()
-    return user(userId)
+    return redirect(f"/{userId}")
 
 
 @app.route("/delete-user", methods=["POST"])
@@ -150,22 +152,19 @@ def delete_user():
     Post.query.filter_by(user_id=userId).delete()
     User.query.filter_by(id=userId).delete()
     db.session.commit()
-    return all_users()
+    return redirect(f"/{userId}")
 
 
-@app.route("/tag", methods=["POST"])
+@app.route("/tag")
 def tag_html():
-    userId = request.form["user"]
-    user = User.query.get(userId)
-    posts = Post.query.filter_by(user_id=userId).all()
-    return render_template("/tag.html", user=user, posts=posts)
+    posts = Post.query.all()
+    return render_template("/new-tag.html", posts=posts)
 
 
 @app.route("/new-tag", methods=["POST"])
 def new_tag():
-    userId = request.form['user-id']
     tagName = request.form['tag-name']
-    postIds = request.form['post-id']
+    postIds = request.form.getlist('post-id')
     new_tag = Tag(name=tagName)
     db.session.add(new_tag)
     db.session.commit()
@@ -174,11 +173,42 @@ def new_tag():
     for post in postIds:
         new_tp = Tag_Post(post_id=post, tag_id=tagId)
         db.session.add(new_tp)
-        db.session.commit()
-    return user(userId)
+    db.session.commit()
+    return redirect("/tags")
 
-def tag_post():
-    tagged_posts = Tag_Post.query.all()
+
+@app.route("/edit-tag/<tagId>")
+def edit_tag_html(tagId):
+    tag = Tag.query.get(tagId)
     posts = Post.query.all()
+    return render_template("/edit-tag.html", tag=tag, posts=posts)
+
+
+@app.route("/tags")
+def tags():
     tags = Tag.query.all()
-    return tagged_posts, posts, tags
+    return render_template("/tags.html", tags=tags)
+
+
+@app.route('/editted-tag', methods=["POST"])
+def editted_tag():
+    tagId = request.form['tag-id']
+    tagName = request.form['tag-name']
+    postIds = request.form.getlist('post-id')
+    tag = Tag.query.get(tagId)
+    tag.name = tagName
+    Tag_Post.query.filter_by(tag_id=tagId).delete()
+    for post in postIds:
+        new_tp = Tag_Post(post_id=post, tag_id=tagId)
+        db.session.add(new_tp)
+    db.session.commit()
+    return redirect("/tags")
+
+
+@app.route('/delete-tag', methods=["POST"])
+def delete_tag():
+    tagId = request.form['tag-id']
+    Tag_Post.query.filter_by(tag_id=tagId).delete()
+    Tag.query.filter_by(id=tagId).delete()
+    db.session.commit()
+    return redirect("/tags")
