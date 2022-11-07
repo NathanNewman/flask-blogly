@@ -49,8 +49,6 @@ class Post(db.Model):
         db.Integer,
         db.ForeignKey('users.id'),
         nullable=False)
-    # tags = db.relationship(
-    #     'Tag', secondary='tagged_posts', cascade="all,delete", backref="posts")
 
 
 class Tag(db.Model):

@@ -1,11 +1,98 @@
 .navbar {
-    background-color: gray;
+    background-color: blue;
+    color:wheat;
+    border: 1px black;
 }
 
-p {
-    font-size: 2em;
+.nav-link {
+    background-color: blue;
+    color:wheat;
+    border: 1px black;
 }
 
-h3 {
-    color:brown;
+.nav-link:hover {
+    background-color: darkblue;
+}
+
+.title {
+    font-weight: bolder;
+    font-size: 14pt;
+}
+
+.content {
+    font-style: italic;
+    font-size: 12pt;
+}
+
+.user {
+    font-weight: bolder;
+    font-size: 10pt;
+}
+
+.tag {
+    font-size: 12pt;
+    background-color: aqua;
+    color:darkblue;
+    text-decoration: none;
+}
+
+.tag:hover {
+    border: 1px darkblue;
+    text-decoration: none;
+}
+
+.add {
+    background-color: green;
+    border: none;
+    color:white;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.2s; 
+}
+
+.add:hover {
+    background-color: darkgreen;
+}
+
+.edit {
+    background-color: blue;
+    border: none;
+    color:white;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+
+.edit:hover {
+    background-color: darkblue;
+}
+
+.delete {
+    background-color: red;
+    border: none;
+    color:white;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+
+.delete:hover {
+    background-color: darkred;
+}
+
+.new-tag {
+    background-color: violet;
+    border: none;
+    color:black;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.2s;
+}
+
+.new-tag {
+    background-color: darkviolet;
 }

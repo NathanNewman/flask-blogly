@@ -56,7 +56,6 @@ def user(userId):
     user = User.query.get(userId)
     posts = Post.query.filter_by(user_id=userId).all()
     tagged_posts = Tag_Post.query.all()
-    # Why use all tags?
     tags = Tag.query.all()
     return render_template("detail.html", user=user, posts=posts, tagged_posts=tagged_posts, tags=tags)
 
@@ -118,6 +117,7 @@ def delete_post():
     postId = int(postId)
     post = Post.query.filter_by(id=postId).first()
     userId = post.user_id
+    Tag_Post.query.filter_by(post_id=postId).delete()
     Post.query.filter_by(id=postId).delete()
     db.session.commit()
     return redirect(f"/{userId}")
@@ -152,7 +152,7 @@ def delete_user():
     Post.query.filter_by(user_id=userId).delete()
     User.query.filter_by(id=userId).delete()
     db.session.commit()
-    return redirect(f"/{userId}")
+    return redirect('/all-users')
 
 
 @app.route("/tag")

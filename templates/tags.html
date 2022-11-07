@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Tags</title>
+    <link href="/static/style.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <nav>
@@ -20,11 +21,11 @@
 
     <ul>
       {% for tag in tags %}
-      <li><a href="/edit-tag/{{tag.id}}">{{tag.name}}</a></li>
+      <li><a class="tag" href="/edit-tag/{{tag.id}}">{{tag.name}}</a></li>
       {% endfor %}
     </ul>
     <form action="/tag">
-      <button>New Tag</button>
+      <button class="add">New Tag</button>
     </form>
   </body>
 </html>

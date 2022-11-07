@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Tag</title>
+    <link href="/static/style.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <nav>
@@ -40,11 +41,11 @@
       <label for="{{post.id}}"><b>{{post.title}}</b> {{post.content}}</label
       ><br /><br />
       {% endif %} {% endfor %}
-      <button>Save Tag</button>
+      <button class="edit">Save Tag</button>
     </form>
     <form action="/delete-tag" method="post">
       <input type="hidden" name="tag-id" value="{{tag.id}}" />
-      <button>Delete Tag</button>
+      <button class="delete">Delete Tag</button>
     </form>
   </body>
 </html>

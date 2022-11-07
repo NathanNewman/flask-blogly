@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Posts</title>
+    <link href="/static/style.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <nav>
@@ -20,15 +21,20 @@
     <ul>
       {% for post in posts %}
       <il>
-        <h4>{{post.title}}</h4>
-        <p>
+        <p class="title">{{post.title}}</p>
+        <p class="content">
           {{post.content}}
-          <b>by {{post.user.first_name}} {{post.user.last_name}}</b>
+          <b class="user"
+            >by {{post.user.first_name}} {{post.user.last_name}}</b
+          >
         </p>
-        <p>Date: {{post.created_at}}</p>
-        {% for tag in post.tags %}
-        <a href="/edit-tag/{{tag.id}}">| {{tag.name}} |</a>
-        {% endfor %}
+        <p class="date">Date: {{post.created_at}}</p>
+        <p>
+          <b>Tags:</b>
+          {% for tag in post.tags %}
+          <a class="tag" href="/edit-tag/{{tag.id}}">| {{tag.name}} |</a>
+          {% endfor %}
+        </p>
       </il>
       {% endfor %}
     </ul>
